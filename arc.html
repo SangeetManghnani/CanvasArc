@@ -1,0 +1,89 @@
+<!DOCTYPE Html> 
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Canvas Ball Animation</title>
+    </head>
+    
+    <body>
+        <section>
+            <div>
+                <canvas id = "canvas" width = "600" height="400"></canvas>
+            </div>
+            
+            <script type="text/javascript">
+            
+                var canvas ;
+                var context ;
+                var  dr = 1, height = 400, width = 600 ;
+                var y = height/2 ;
+                var x = width/2  ;
+                var r = 10;
+                var counter = 0 ;
+                var color ;
+                 
+                function circle(x, y, r,c) {
+                    context.beginPath();
+                    context.arc(x, y, r, 0, 2 * Math.PI);
+                    
+                    context.fillStyle = c ;
+                    context.fill();
+                   
+                }
+                
+                  function generateColor() {
+                     var suffix = '0123456789ABCDEF'.split('');
+                     var colorcode = '#';
+                     for (var i = 0; i < 6; i++ ) {
+                        colorcode += suffix[Math.round(Math.random() * 15)];
+                     }
+                     return colorcode;
+                  }
+                
+                function rectangle(x, y, w, h) {
+                    context.beginPath();
+                    context.rect(x, y, w, h);
+                    context.closePath();
+                    context.fill();
+                }
+                
+                function clear() {
+                    context.clearRect(0, 0, width, height);
+                }
+                
+                function init() {
+                    canvas = document.getElementById("canvas");
+                    context = canvas.getContext("2d");
+                    return setInterval(draw, 8) ;
+                }
+                
+                function draw() {
+                    clear();
+                    context.fillStyle = "#303030" ;
+                    rectangle(0, 0, width, height);
+                    if (counter == 0)
+                        circle(x, y, r,"#FF8C00") ; 
+                    else if(counter >= 1)
+                        circle(x, y, r,color) ;
+                        
+                    if( r + dr > 150)
+                    {
+                        r = 10;
+                        counter++;
+                        color = generateColor();
+                            
+                    }
+                    
+                    r += dr ;
+                    
+                    
+                    
+                }
+                
+                init() ;
+                
+            </script>
+        </section>
+    </body>
+    
+</html>
